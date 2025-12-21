@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CareerPathFinder</title>
+
+<style>
+/* ================= COLORS ================= */
+:root{
+    --primary:#ff8c42;
+    --primary-dark:#e06b1a;
+    --accent:#fff1e6;
+}
+
+/* ================= GENERAL ================= */
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#f4f4f9;
+    scroll-behavior:smooth;
+}
+section{ padding:60px 20px; }
+h2{ margin-bottom:20px; }
+
+/* ================= NAVBAR ================= */
+.navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:18px 40px;
+    background:white;
+    position:sticky;
+    top:0;
+    box-shadow:0 2px 5px rgba(0,0,0,0.1);
+}
+.logo{ font-size:24px; font-weight:bold; }
+.nav-links{ list-style:none; display:flex; gap:25px; }
+.nav-links a{ text-decoration:none; color:#333; }
+
+.start-btn{
+    padding:10px 20px;
+    background:var(--primary);
+    color:white;
+    border-radius:5px;
+    text-decoration:none;
+}
+.start-btn:hover{ background:var(--primary-dark); }
+
+/* ================= HERO ================= */
+.hero{
+    text-align:center;
+    padding:120px 20px;
+    background:
+    linear-gradient(rgba(255,255,255,0.75),rgba(255,255,255,0.75)),
+    url('https://images.unsplash.com/photo-1522071820081-009f0129c71c') center/cover;
+}
+.hero h1{ font-size:48px; }
+.hero p{ font-size:20px; }
+
+.hero a{
+    padding:15px 30px;
+    background:var(--primary);
+    color:white;
+    border-radius:5px;
+    text-decoration:none;
+    font-weight:bold;
+}
+.hero a:hover{ background:var(--primary-dark); }
+
+/* ================= CARDS ================= */
+.steps-container,
+.career-container,
+.skill-path{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:20px;
+}
+
+.step-card,
+.career-card,
+.skill-card{
+    background:white;
+    width:260px;
+    padding:20px;
+    border-radius:10px;
+    text-align:center;
+    box-shadow:0 2px 12px rgba(0,0,0,0.1);
+}
+
+.step-card a,
+.skill-card a{
+    display:inline-block;
+    margin-top:12px;
+    padding:8px 18px;
+    background:var(--primary);
+    color:white;
+    border-radius:5px;
+    text-decoration:none;
+}
+.step-card a:hover,
+.skill-card a:hover{ background:var(--primary-dark); }
+
+/* ================= QUIZ ================= */
+.quiz-box{
+    max-width:600px;
+    margin:auto;
+    background:white;
+    padding:30px;
+    border-radius:10px;
+}
+.quiz-box select{
+    width:100%;
+    padding:10px;
+}
+
+.quiz-btn{
+    margin-top:20px;
+    width:100%;
+    padding:12px;
+    background:var(--primary);
+    color:white;
+    border:none;
+    border-radius:5px;
+}
+.quiz-btn:hover{ background:var(--primary-dark); }
+
+/* ================= CONTACT ================= */
+form{
+    max-width:600px;
+    margin:auto;
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+form input, textarea{
+    padding:12px;
+    border-radius:5px;
+}
+.submit-btn{
+    background:var(--primary);
+    color:white;
+    padding:12px;
+    border:none;
+    border-radius:5px;
+}
+.submit-btn:hover{ background:var(--primary-dark); }
+
+/* ================= FOOTER ================= */
+footer{
+    background:#333;
+    color:white;
+    text-align:center;
+    padding:18px;
+}
+
+/* ================= RESPONSIVE ================= */
+/* ================= MOBILE RESPONSIVE ================= */
+@media (max-width: 768px){
+
+    /* Navbar */
+    .navbar{
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px;
+    }
+
+    .nav-links{
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+    }
+
+    /* Hero */
+    .hero{
+        padding: 80px 15px;
+    }
+
+    .hero h1{
+        font-size: 32px;
+    }
+
+    .hero p{
+        font-size: 16px;
+    }
+
+    /* Cards width */
+    .step-card,
+    .career-card,
+    .skill-card{
+        width: 90%;
+    }
+
+    /* Sections padding */
+    section{
+        padding: 40px 15px;
+    }
+
+    /* Quiz box */
+    .quiz-box{
+        width: 90%;
+        padding: 20px;
+    }
+
+    /* Buttons full width */
+    .quiz-btn,
+    .start-btn,
+    .submit-btn{
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Form */
+    form{
+        width: 90%;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+<div class="logo">CareerPathFinder</div>
+<ul class="nav-links">
+<li><a href="#home">Home</a></li>
+<li><a href="#quiz">Quiz</a></li>
+<li><a href="#careers">Careers</a></li>
+<li><a href="#skills">Skills</a></li>
+<li><a href="#contact">Contact</a></li>
+</ul>
+<a class="start-btn" href="#quiz">Get Started</a>
+</nav>
+
+<!-- HERO -->
+<section id="home" class="hero">
+<h1>Discover Your Perfect Career</h1>
+<p>Your interests define your future</p>
+<a href="#quiz">Take Quiz</a>
+</section>
+
+<!-- QUIZ -->
+<section id="quiz">
+<h2 style="text-align:center;">Interest Assessment</h2>
+<div class="quiz-box">
+<select id="interest">
+<option value="">-- Select Interest --</option>
+<option value="tech">Technology</option>
+<option value="business">Business</option>
+<option value="creative">Creative</option>
+<option value="engineering">Engineering</option>
+<option value="medical">Medical</option>
+<option value="media">Media</option>
+<option value="finance">Finance</option>
+<option value="lifestyle">Lifestyle</option>
+</select>
+<button class="quiz-btn" onclick="showCareers()">See Recommendations</button>
+</div>
+</section>
+
+<!-- CAREERS -->
+<section id="careers">
+<h2 style="text-align:center;">Recommended Careers</h2>
+<div class="career-container" id="careerResults"></div>
+</section>
+
+<!-- SKILLS OVERVIEW -->
+<section id="skills">
+<h2 style="text-align:center;">Skill Levels</h2>
+<div class="skill-path">
+<div class="skill-card">
+<h3>Beginner</h3>
+<p>Foundation skills</p>
+<a href="#skills-detail" onclick="showSkills()">See Details</a>
+</div>
+<div class="skill-card">
+<h3>Intermediate</h3>
+<p>Practical experience</p>
+<a href="#skills-detail" onclick="showSkills()">See Details</a>
+</div>
+<div class="skill-card">
+<h3>Advanced</h3>
+<p>Professional growth</p>
+<a href="#skills-detail" onclick="showSkills()">See Details</a>
+</div>
+</div>
+</section>
+
+<!-- SKILLS DETAIL -->
+<section id="skills-detail">
+<h2 style="text-align:center;">Detailed Skill Roadmap</h2>
+<div class="skill-path" id="skillDetails">
+<p style="text-align:center;">Select interest & click <b>See Details</b></p>
+</div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+<h2 style="text-align:center;">Contact Us</h2>
+<form action="https://formsubmit.co/palakkewalramani22@gmail.com" method="POST">
+    <input type="text" placeholder="Your Name" required>
+    <input type="email" placeholder="Your Email" required>
+    <textarea rows="5" placeholder="Your Message" required></textarea>
+    <button class="submit-btn">Send</button>
+</form>
+</section>
+
+<footer>© 2025 CareerPathFinder</footer>
+
+<!-- ================= JS ================= -->
+<script>
+function showCareers(){
+let interest=document.getElementById("interest").value;
+let box=document.getElementById("careerResults");
+box.innerHTML="";
+
+let careers={
+tech:["Software Developer","Web Developer","Data Analyst"],
+business:["Business Manager","HR Specialist","Marketing Executive"],
+creative:["Graphic Designer","Animator","Content Creator"],
+engineering:["Civil Engineer","Electrical Engineer","Robotics Engineer"],
+medical:["Doctor","Nurse","Pharmacist"],
+media:["Journalist","Digital Creator","PR Specialist"],
+finance:["Accountant","Financial Analyst","Auditor"],
+lifestyle:["Chef","Fashion Designer","Fitness Trainer"]
+};
+
+if(!interest){
+box.innerHTML="Please select an interest.";
+return;
+}
+
+careers[interest].forEach(c=>{
+box.innerHTML+=`<div class="career-card"><h3>${c}</h3></div>`;
+});
+}
+
+function showSkills(){
+let interest=document.getElementById("interest").value;
+let box=document.getElementById("skillDetails");
+
+if(!interest){
+box.innerHTML="<p>Please select an interest first.</p>";
+return;
+}
+
+let skills={
+tech:{
+b:"Learn HTML, CSS, JavaScript, programming logic, and version control basics to understand how software systems work.",
+i:"Work with frameworks, databases, APIs, GitHub projects, and build real-world applications.",
+a:"Internships, freelancing, cloud deployment, system design and advanced programming."
+},
+business:{
+b:"Understand business fundamentals, communication skills, basic accounting and management principles.",
+i:"Marketing tools, HR systems, financial planning and business analytics.",
+a:"Leadership, entrepreneurship, strategic planning and real business execution."
+},
+creative:{
+b:"Drawing basics, color theory, typography and creative thinking.",
+i:"Photoshop, Illustrator, video editing, animation tools and projects.",
+a:"Professional portfolio, freelancing, brand collaborations and monetization."
+},
+engineering:{
+b:"Strong mathematics, physics and engineering fundamentals.",
+i:"CAD tools, simulations, programming and hands-on projects.",
+a:"Industrial software, internships, research and certifications."
+},
+medical:{
+b:"Biology, anatomy, medical terminology and healthcare basics.",
+i:"Clinical practices, lab skills and patient care.",
+a:"Hospital training, specialization and professional practice."
+},
+media:{
+b:"Communication skills, storytelling, camera basics and ethics.",
+i:"Video editing, social media tools and audience engagement.",
+a:"Brand management, journalism and monetization."
+},
+finance:{
+b:"Accounting basics, financial terms and Excel skills.",
+i:"Financial modeling, analytics, budgeting and auditing.",
+a:"Investment analysis, fintech tools and risk management."
+},
+lifestyle:{
+b:"Basic cooking, fashion, fitness or travel skills.",
+i:"Professional certifications and social media presence.",
+a:"Personal branding, entrepreneurship and collaborations."
+}
+};
+
+box.innerHTML=`
+<div class="skill-card"><h3>Beginner</h3><p>${skills[interest].b}</p></div>
+<div class="skill-card"><h3>Intermediate</h3><p>${skills[interest].i}</p></div>
+<div class="skill-card"><h3>Advanced</h3><p>${skills[interest].a}</p></div>
+`;
+}
+</script>
+
+</body>
+</html>
